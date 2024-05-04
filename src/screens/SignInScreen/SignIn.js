@@ -8,18 +8,25 @@ import {
   useWindowDimensions,
   ScrollView,
 } from "react-native";
-import Logo from "../../assets/images/logo.png";
-import CustomInput from "../components/CustomInput";
-import CustomButton from "../components/CustomButton";
+import Logo from "../../../assets/images/logo.png";
+import CustomInput from "../../components/CustomInput";
+import SocialMediaSignInButtons from "../../components/SocialMediaSignInButtons";
+import CustomButton from "../../components/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
 const SignIn = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const { height } = useWindowDimensions();
+  const navigation = useNavigation();
 
   const onSignInPressed = () => {
-    console.warn("Sign in");
+    if (username === "admin" && password === "1234") {
+      navigation.navigate("Home");
+    } else {
+      console.warn("Wrong username or password");
+    }
   };
   const onForgotPasswordPressed = () => {
     console.warn("Forgot Password");
@@ -36,7 +43,7 @@ const SignIn = () => {
   };
 
   const onSignUpPressed = () => {
-    console.warn("Sign up");
+    navigation.navigate("SignUp");
   };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -58,28 +65,11 @@ const SignIn = () => {
           secureTextEntry={true}
         />
         <CustomButton text={"Sign In"} onPress={onSignInPressed} />
+        <SocialMediaSignInButtons />
         <CustomButton
           text={"Forgot password?"}
           onPress={onForgotPasswordPressed}
           type="TERTIARY"
-        />
-        <CustomButton
-          text={"Sign In with Google"}
-          onPress={onSignInGooglePressed}
-          bgColor="#FA9E"
-          fgColor="#DD4D44"
-        />
-        <CustomButton
-          text={"Sign In with Facebook"}
-          onPress={onSignInFacebookPressed}
-          bgColor="#E7EAF4"
-          fgColor="#4765A9"
-        />
-        <CustomButton
-          text={"Sign In with Apple"}
-          onPress={onSignInApplePressed}
-          bgColor="#e3e3e3"
-          fgColor="#363636"
         />
         <CustomButton
           text={"Don't have an account? Create one"}
