@@ -6,9 +6,6 @@ const SocialMediaSignInButtons = () => {
   const onSignInGooglePressed = () => {
     console.warn("Sign in with Google");
   };
-  const onSignInFacebookPressed = () => {
-    console.warn("Sign in with Facebook");
-  };
 
   const onSignInApplePressed = () => {
     console.warn("Sign in with Apple");
@@ -20,12 +17,6 @@ const SocialMediaSignInButtons = () => {
         onPress={onSignInGooglePressed}
         bgColor="#FA9E"
         fgColor="#DD4D44"
-      />
-      <CustomButton
-        text={"Sign In with Facebook"}
-        onPress={onSignInFacebookPressed}
-        bgColor="#E7EAF4"
-        fgColor="#4765A9"
       />
       <CustomButton
         text={"Sign In with Apple"}
