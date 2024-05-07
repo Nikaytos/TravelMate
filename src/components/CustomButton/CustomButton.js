@@ -39,10 +39,16 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
 
+  container_ROUNDED: {
+    borderRadius: 30,
+    backgroundColor: "#55BCF6",
+  },
+
   container_PRIMARY: {
     backgroundColor: "#00BF63",
   },
   container_TERTIARY: {},
+
 
   text: { fontWeight: "bold", color: "white" },
   text_TERTIARY: { color: "gray" },

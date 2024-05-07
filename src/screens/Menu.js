@@ -1,5 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Platform } from "react-native";
 import Home from "./Home";
 import Tours from "./Tours";
 import More from "./More";
@@ -44,13 +45,16 @@ function Menu() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {
-          height: 60,
-          margin: 16,
-          borderRadius: 16,
-          justifyContent: "center",
-          alignItems: "center",
-        },
+        tabBarStyle:
+          Platform.OS === "android"
+            ? {
+                height: 60,
+                margin: 16,
+                borderRadius: 16,
+                justifyContent: "center",
+                alignItems: "center",
+              }
+            : {},
       }}
     >
       {TabArr.map((item, index) => {
