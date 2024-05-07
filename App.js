@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Menu from "./src/screens/Menu";
 import Auth from "./src/screens/Auth";
@@ -16,6 +16,7 @@ export default function App() {
           <Menu />
         )}
       </View>
+      <StatusBar hidden />
     </NavigationContainer>
   );
 }

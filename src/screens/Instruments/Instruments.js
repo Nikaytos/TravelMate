@@ -3,7 +3,6 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../../components/CustomButton";
 
-
 export default function Instruments() {
   const navigation = useNavigation();
 
