@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import CustomInput from "../../components/CustomInput";
-import CustomButton from "../../components/CustomButton";
-import SocialMediaSignInButtons from "../../components/SocialMediaSignInButtons";
+import CustomInput from "../components/CustomInput";
+import CustomButton from "../components/CustomButton";
+import SocialMediaSignInButtons from "../components/SocialMediaSignInButtons";
 import { useNavigation } from "@react-navigation/native";
 
-const SignUp = () => {
+export default function SignUp () {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -90,5 +90,3 @@ const styles = StyleSheet.create({
   },
   text: { color: "gray", marginVertical: 10 },
 });
-
-export default SignUp;

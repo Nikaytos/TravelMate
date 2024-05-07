@@ -8,13 +8,13 @@ import {
   useWindowDimensions,
   ScrollView,
 } from "react-native";
-import Logo from "../../../assets/images/logo.png";
-import CustomInput from "../../components/CustomInput";
-import SocialMediaSignInButtons from "../../components/SocialMediaSignInButtons";
-import CustomButton from "../../components/CustomButton";
+import Logo from "../../assets/images/logo.png";
+import CustomInput from "../components/CustomInput";
+import SocialMediaSignInButtons from "../components/SocialMediaSignInButtons";
+import CustomButton from "../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 
-const SignIn = () => {
+export default function SignIn({ onSignIn }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,19 +23,17 @@ const SignIn = () => {
 
   const onSignInPressed = () => {
     if (username === "admin" && password === "1234") {
-      navigation.navigate("Home");
+      onSignIn();
     } else {
       console.warn("Wrong username or password");
     }
   };
+
   const onForgotPasswordPressed = () => {
     console.warn("Forgot Password");
   };
   const onSignInGooglePressed = () => {
     console.warn("Sign in with Google");
-  };
-  const onSignInFacebookPressed = () => {
-    console.warn("Sign in with Facebook");
   };
 
   const onSignInApplePressed = () => {
@@ -79,7 +77,7 @@ const SignIn = () => {
       </View>
     </ScrollView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   root: {
@@ -92,5 +90,3 @@ const styles = StyleSheet.create({
     maxHeight: 500,
   },
 });
-
-export default SignIn;
