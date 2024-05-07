@@ -1,11 +1,10 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./Home";
 import Tours from "./Tours";
-import Instruments from "./Instruments";
 import More from "./More";
 import TabButton from "../components/TabButton";
+import InstrumentsNavigate from "./InstrumentsNavigate";
 
 const TabArr = [
   {
@@ -27,7 +26,7 @@ const TabArr = [
     type: "MaterialCommunityIcons",
     activeIcon: "toolbox",
     inActiveIcon: "toolbox-outline",
-    component: Instruments,
+    component: InstrumentsNavigate,
   },
   {
     route: "Інше",
@@ -42,34 +41,32 @@ const Tab = createBottomTabNavigator();
 
 function Menu() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: {
-            height: 60,
-            margin: 16,
-            borderRadius: 16,
-            justifyContent: "center",
-            alignItems: "center",
-          },
-        }}
-      >
-        {TabArr.map((item, index) => {
-          return (
-            <Tab.Screen
-              key={index}
-              name={item.route}
-              component={item.component}
-              options={{
-                tabBarShowLabel: false,
-                tabBarButton: (props) => <TabButton {...props} item={item} />,
-              }}
-            />
-          );
-        })}
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          height: 60,
+          margin: 16,
+          borderRadius: 16,
+          justifyContent: "center",
+          alignItems: "center",
+        },
+      }}
+    >
+      {TabArr.map((item, index) => {
+        return (
+          <Tab.Screen
+            key={index}
+            name={item.route}
+            component={item.component}
+            options={{
+              tabBarShowLabel: false,
+              tabBarButton: (props) => <TabButton {...props} item={item} />,
+            }}
+          />
+        );
+      })}
+    </Tab.Navigator>
   );
 }
 
