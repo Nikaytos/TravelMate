@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors } from "../../constants/";
 import axios from "axios";
@@ -16,11 +17,11 @@ import cheerio from "cheerio";
 const TourList = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1); // Current page
-  const [totalPages, setTotalPages] = useState(0); // Total number of pages on the site
-  const [isFetching, setIsFetching] = useState(false); // Whether new data is being fetched
-  const [showScrollToTop, setShowScrollToTop] = useState(false); // Whether to show the "scroll to top" button
-  const flatListRef = useRef(null); // Ref for the FlatList component
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isFetching, setIsFetching] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const flatListRef = useRef(null);
 
   useEffect(() => {
     const tourDataUrl = "https://kraina-ua.com/uk/tours/tours-ukraine";
@@ -34,17 +35,27 @@ const TourList = () => {
 
         const parsedTours = [];
         tourBlocks.each((index, element) => {
+          const tourUrl = $(element).find(".tour-img").attr("href");
+          const fullTourUrl = `https://kraina-ua.com${tourUrl}`;
           const imageUrl = $(element).find(".tour-img img").attr("data-src");
-          const fullImageUrl = `https://kraina-ua.com/${imageUrl}`;
+          const fullImageUrl = `https://kraina-ua.com${imageUrl}`;
           const name = $(element).find(".tour-title").text().trim();
           const priceText = $(element).find(".price").text();
           const price = parseInt(priceText.replace(/\D/g, ""));
 
-          parsedTours.push({ imageUrl: fullImageUrl, name, price });
+          parsedTours.push({
+            imageUrl: fullImageUrl,
+            name,
+            price,
+            tourUrl: fullTourUrl,
+          });
         });
 
         setTours((prevTours) => [...prevTours, ...parsedTours]);
         setIsFetching(false);
+        if (pageNumber === 1) {
+          setLoading(false);
+        }
       } catch (error) {
         console.error("Error loading page:", error);
       }
@@ -106,26 +117,41 @@ const TourList = () => {
     }
   };
 
+  const navigation = useNavigation();
+
+  const handleTourPress = (tour) => {
+    navigation.navigate("TourItem", { tour });
+  };
+
   return (
     <View style={styles.container}>
-      <FlatList
-        ref={flatListRef}
-        data={tours}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.tourItem}>
-            <Image source={{ uri: item.imageUrl }} style={styles.tourImage} />
-            <View style={styles.tourInfo}>
-              <Text style={styles.tourName}>{item.name}</Text>
-              <Text style={styles.tourPrice}>{item.price} грн</Text>
-            </View>
-          </View>
-        )}
-        ListFooterComponent={renderFooter}
-        onEndReached={handleLoadMore}
-        onEndReachedThreshold={0.1}
-        onScroll={handleScroll}
-      />
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <FlatList
+          ref={flatListRef}
+          data={tours}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => handleTourPress(item)}>
+              <View style={styles.tourItem}>
+                <Image
+                  source={{ uri: item.imageUrl }}
+                  style={styles.tourImage}
+                />
+                <View style={styles.tourInfo}>
+                  <Text style={styles.tourName}>{item.name}</Text>
+                  <Text style={styles.tourPrice}>{item.price} грн</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
+          ListFooterComponent={renderFooter}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.1}
+          onScroll={handleScroll}
+        />
+      )}
       {showScrollToTop && (
         <TouchableOpacity
           style={styles.scrollToTopButton}
