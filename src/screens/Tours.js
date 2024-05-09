@@ -16,6 +16,7 @@ const Tours = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.sectionTitle}>Список турів</Text>
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}
@@ -59,6 +60,12 @@ const styles = StyleSheet.create({
   filterText: {
     color: Colors.white,
     fontWeight: "bold",
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    paddingTop: 70,
+    paddingBottom: 20,
   },
 });
 

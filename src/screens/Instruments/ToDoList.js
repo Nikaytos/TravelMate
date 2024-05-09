@@ -45,7 +45,7 @@ const ToDoList = () => {
     <View style={styles.container}>
       <View style={styles.taskWrapper}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Things on the road</Text>
+          <Text style={styles.sectionTitle}>Список речей</Text>
           <TouchableOpacity onPress={deleteIconPressed}>
             <View style={styles.iconContainer}>
               <Icon
@@ -72,7 +72,7 @@ const ToDoList = () => {
       >
         <TextInput
           style={styles.input}
-          placeholder={"Write a task"}
+          placeholder={"Напишіть назву речі"}
           value={task}
           onChangeText={(text) => setTask(text)}
         />
