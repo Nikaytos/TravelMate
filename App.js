@@ -5,7 +5,7 @@ import Menu from "./src/screens/Menu";
 import Auth from "./src/screens/Auth";
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <NavigationContainer>
