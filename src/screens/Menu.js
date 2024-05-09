@@ -24,8 +24,8 @@ const TabArr = [
   {
     route: "Головна",
     type: "Ionicons",
-    activeIcon: "home",
-    inActiveIcon: "home-outline",
+    activeIcon: "star",
+    inActiveIcon: "star-outline",
     component: Home,
   },
   {
